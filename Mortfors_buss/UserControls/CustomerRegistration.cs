@@ -24,7 +24,7 @@ namespace Mortfors_buss.UserControls
             }
             else
             {
-                ShowErrorBox("Ogiltig e-mail");
+                ShowErrorBox("Ogiltig värde");
             }
         }
 

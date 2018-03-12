@@ -32,7 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnSearchBookTravel = new System.Windows.Forms.Button();
             this.btnSearchCustomer = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnSearchBookDriver = new System.Windows.Forms.Button();
             this.btnCancelTrip = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -64,7 +64,7 @@
             this.btnSearchBookTravel.TabIndex = 2;
             this.btnSearchBookTravel.Text = "Sök och boka resa";
             this.btnSearchBookTravel.UseVisualStyleBackColor = true;
-            this.btnSearchBookTravel.Click += new System.EventHandler(this.BtnBookTravel_Click);
+            this.btnSearchBookTravel.Click += new System.EventHandler(this.BtnSearchBookTravel_Click);
             // 
             // btnSearchCustomer
             // 
@@ -76,14 +76,15 @@
             this.btnSearchCustomer.UseVisualStyleBackColor = true;
             this.btnSearchCustomer.Click += new System.EventHandler(this.BtnSearchCustomer_Click);
             // 
-            // button1
+            // btnSearchBookDriver
             // 
-            this.button1.Location = new System.Drawing.Point(100, 310);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(140, 40);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Sök och boka chaufför";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnSearchBookDriver.Location = new System.Drawing.Point(100, 310);
+            this.btnSearchBookDriver.Name = "btnSearchBookDriver";
+            this.btnSearchBookDriver.Size = new System.Drawing.Size(140, 40);
+            this.btnSearchBookDriver.TabIndex = 4;
+            this.btnSearchBookDriver.Text = "Sök och boka chaufför";
+            this.btnSearchBookDriver.UseVisualStyleBackColor = true;
+            this.btnSearchBookDriver.Click += new System.EventHandler(this.BtnSearchBookDriver_Click);
             // 
             // btnCancelTrip
             // 
@@ -99,7 +100,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btnCancelTrip);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnSearchBookDriver);
             this.Controls.Add(this.btnSearchCustomer);
             this.Controls.Add(this.btnSearchBookTravel);
             this.Controls.Add(this.label1);
@@ -117,7 +118,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSearchBookTravel;
         private System.Windows.Forms.Button btnSearchCustomer;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSearchBookDriver;
         private System.Windows.Forms.Button btnCancelTrip;
     }
 }

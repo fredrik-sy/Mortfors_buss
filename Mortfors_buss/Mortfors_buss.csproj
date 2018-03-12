@@ -96,6 +96,12 @@
     <Compile Include="UserControls\SearchCustomer.Designer.cs">
       <DependentUpon>SearchCustomer.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\SearchBookDriver.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\SearchBookDriver.Designer.cs">
+      <DependentUpon>SearchBookDriver.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="UserControls\SearchBookTravel.resx">
       <DependentUpon>SearchBookTravel.cs</DependentUpon>
     </EmbeddedResource>
@@ -119,6 +125,9 @@
     </Compile>
     <EmbeddedResource Include="UserControls\SearchCustomer.resx">
       <DependentUpon>SearchCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\SearchBookDriver.resx">
+      <DependentUpon>SearchBookDriver.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

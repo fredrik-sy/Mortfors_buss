@@ -16,7 +16,7 @@ namespace Mortfors_buss.UserControls
             MainForm.UserControls[typeof(CustomerRegistration)].Visible = true;
         }
 
-        private void BtnBookTravel_Click(object sender, EventArgs e)
+        private void BtnSearchBookTravel_Click(object sender, EventArgs e)
         {
             Visible = false;
             MainForm.UserControls[typeof(SearchBookTravel)].Visible = true;
@@ -26,6 +26,12 @@ namespace Mortfors_buss.UserControls
         {
             Visible = false;
             MainForm.UserControls[typeof(SearchCustomer)].Visible = true;
+        }
+
+        private void BtnSearchBookDriver_Click(object sender, EventArgs e)
+        {
+            Visible = false;
+            MainForm.UserControls[typeof(SearchBookDriver)].Visible = true;
         }
     }
 }

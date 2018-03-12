@@ -158,31 +158,19 @@ namespace Mortfors_buss.Lib
         {
             using (PreparedStatement preparedStatement = new PreparedStatement(connection))
             {
-                /*
-                string commandText = "select distinct email as epost, name as namn, address as adress, count(customer_id) as antalturer " +
-                                     "from (" +
-                                        "select distinct on (weeknumber, email, bustrip.bustrip_id) * " +
-                                        "from customer " +
-                                        "left join bookingschedule on email=customer_id " +
-                                        "left join bustrip on bookingschedule.bustrip_id=bustrip.bustrip_id " +
-                                        "where (yearstamp=date_part('year', now()) and weeknumber<date_part('week', now())) " +
-                                        "or (yearstamp=date_part('year', now()) and weeknumber=date_part('week', now()) and dayofweek<date_part('isodow', now())) " +
-                                        "or bookingschedule_id is null " +
-                                        "group by email, bookingschedule_id, bustrip.bustrip_id" +
-                                     ") as traveled " +
-                                     "group by email, name, address ";
-                                     */
                 string commandText =
                     "select distinct customer.email as epost, name as namn, address as adress, number as telefonnummer, count(customer_id) as antalturer " +
                     "from customer " +
                     "left join phone on customer.email=phone.email " +
                     "left join (" +
-                        "select weeknumber, customer_id, bookingschedule.bustrip_id " +
-                        "from bookingschedule " +
-                        "join bustrip on bookingschedule.bustrip_id=bustrip.bustrip_id " +
-                        "where (yearstamp=date_part('year', now()) and weeknumber<date_part('week', now())) " +
-                        "or (yearstamp=date_part('year', now()) and weeknumber=date_part('week', now()) and dayofweek<date_part('isodow', now())) " +
-                        "group by weeknumber, customer_id, bookingschedule.bustrip_id" +
+                        "select booking.weeknumber, customer_id, booking.bustrip_id " +
+                        "from bookingschedule as booking " +
+                        "join bustrip on booking.bustrip_id=bustrip.bustrip_id " +
+                        "left join cancelled on booking.weeknumber=cancelled.weeknumber and booking.bustrip_id=cancelled.bustrip_id " +
+                        "where cancelled.weeknumber is null and cancelled.bustrip_id is null " +
+                        "and ((booking.yearstamp=date_part('year', now()) and booking.weeknumber<date_part('week', now())) " +
+                        "or (booking.yearstamp=date_part('year', now()) and booking.weeknumber=date_part('week', now()) and dayofweek<date_part('isodow', now()))) " +
+                        "group by booking.weeknumber, customer_id, booking.bustrip_id " +
                     ") as booking on customer.email=customer_id " +
                     "group by customer.email, number ";
 
@@ -222,18 +210,99 @@ namespace Mortfors_buss.Lib
             {
                 preparedStatement.CommandText = "select distinct departurestop, arrivalstop, count(*) as antalturer " +
                                                 "from (" +
-                                                    "select distinct on (weeknumber, customer_id, bustrip.bustrip_id) bustrip.departurestop, bustrip.arrivalstop, count(distinct (weeknumber, customer_id, bustrip.bustrip_id)) " +
-                                                    "from bookingschedule join bustrip on bookingschedule.bustrip_id=bustrip.bustrip_id " +
+                                                    "select distinct on (booking.weeknumber, customer_id, booking.bustrip_id) bustrip.departurestop, bustrip.arrivalstop " +
+                                                    "from bookingschedule as booking " +
+                                                    "join bustrip on booking.bustrip_id=bustrip.bustrip_id " +
+                                                    "left join cancelled on booking.weeknumber=cancelled.weeknumber and booking.bustrip_id=cancelled.bustrip_id " +
                                                     "where customer_id=@email " +
-                                                    "and ((yearstamp=date_part('year', now()) and weeknumber<date_part('week', now())) " +
-                                                    "or (yearstamp=date_part('year', now()) and weeknumber=date_part('week', now()) and dayofweek<date_part('isodow', now()))) " +
-                                                    "group by bustrip.bustrip_id, weeknumber, bookingschedule.customer_id" +
+                                                    "and cancelled.weeknumber is null and cancelled.bustrip_id is null " +
+                                                    "and ((booking.yearstamp=date_part('year', now()) and booking.weeknumber<date_part('week', now())) " +
+                                                    "or (booking.yearstamp=date_part('year', now()) and booking.weeknumber=date_part('week', now()) and dayofweek<date_part('isodow', now()))) " +
+                                                    "group by booking.weeknumber, booking.customer_id, booking.bustrip_id, bustrip.departurestop, bustrip.arrivalstop" +
                                                 ") as traveled " +
                                                 "group by departurestop, arrivalstop";
                 preparedStatement.AddParameter("email", email, NpgsqlDbType.Varchar);
                 preparedStatement.Execute();
                 return preparedStatement.GetDataSet();
             }
+        }
+
+        public DataSet RetrieveDrivingSchedule(int weekNumber)
+        {
+            using (PreparedStatement preparedStatement = new PreparedStatement(connection))
+            {
+                preparedStatement.CommandText =
+                    "select bustrip.bustrip_id, dayofweek, departurestop, departuretime, arrivalstop, arrivaltime, " +
+                    "departure.country as departurecountry, departure.street as departurestreet, arrival.country as arrivalcountry, arrival.street as arrivalstreet " +
+                    "from bustrip " +
+                    "join busstop as departure on departurestop=departure.city " +
+                    "join busstop as arrival on arrivalstop=arrival.city " +
+                    "left join drivingschedule as schedule on bustrip.bustrip_id=schedule.bustrip_id and weeknumber=@weeknumber and yearstamp=date_part('year', now()) " +
+                    "where bustrip.bustrip_id not in (" +
+                        "select bustrip.bustrip_id " +
+                        "from bustrip " +
+                        "left outer join cancelled on bustrip.bustrip_id=cancelled.bustrip_id " +
+                        "where weeknumber=@weeknumber and yearstamp=date_part('year', now()) " +
+                    ") and driver_id is null";
+
+                preparedStatement.AddParameter("weeknumber", weekNumber, NpgsqlDbType.Integer);
+                preparedStatement.Execute();
+                return preparedStatement.GetDataSet();
+            }
+        }
+
+        public DataSet RetrieveDriverSchedule(int weekNumber)
+        {
+            using (PreparedStatement preparedStatement = new PreparedStatement(connection))
+            {
+                preparedStatement.CommandText =
+                    "select driver_id, dayofweek, departuretime, arrivaltime " +
+                    "from drivingschedule " +
+                    "join bustrip on drivingschedule.bustrip_id=bustrip.bustrip_id " +
+                    "where weeknumber=@weeknumber and yearstamp=date_part('year', now())";
+
+                preparedStatement.AddParameter("weeknumber", weekNumber, NpgsqlDbType.Integer);
+                preparedStatement.Execute();
+                return preparedStatement.GetDataSet();
+            }
+        }
+
+        public DataSet RetrieveDriver()
+        {
+            using (Statement statement = new Statement(connection))
+            {
+                statement.CommandText = "select personalnumber, name from driver";
+                statement.Execute();
+                return statement.GetDataSet();
+            }
+        }
+
+        public bool RegisterDrivingSchedule(int weekNumber, string driverId, int busTripId)
+        {
+            NpgsqlTransaction transaction = connection.BeginTransaction(IsolationLevel.Serializable);
+
+            try
+            {
+                using (PreparedStatement preparedStatement = new PreparedStatement(connection))
+                {
+                    preparedStatement.Transaction = transaction;
+                    preparedStatement.CommandText =
+                        "insert into drivingschedule(weeknumber, driver_id, bustrip_id) " +
+                        "values (@weeknumber, @driver_id, @bustrip_id)";
+                    preparedStatement.AddParameter("weeknumber", weekNumber, NpgsqlDbType.Integer);
+                    preparedStatement.AddParameter("driver_id", driverId, NpgsqlDbType.Varchar);
+                    preparedStatement.AddParameter("bustrip_id", busTripId, NpgsqlDbType.Integer);
+                    preparedStatement.Execute();
+                }
+            }
+            catch
+            {
+                transaction.Rollback();
+                return false;
+            }
+
+            transaction.Commit();
+            return true;
         }
     }
 }

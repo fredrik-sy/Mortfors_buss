@@ -38,8 +38,9 @@ namespace Mortfors_buss
             {
                 {typeof(MainMenu), mainMenu},
                 {typeof(CustomerRegistration), customerRegistration},
-                {typeof(SearchBookTravel), bookTravel},
-                {typeof(SearchCustomer), searchCustomer}
+                {typeof(SearchBookTravel), searchBookTravel},
+                {typeof(SearchCustomer), searchCustomer},
+                {typeof(SearchBookDriver), searchBookDriver}
             };
         }
 
