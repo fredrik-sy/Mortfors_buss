@@ -33,6 +33,7 @@
             this.searchBookTravel = new Mortfors_buss.UserControls.SearchBookTravel();
             this.searchCustomer = new Mortfors_buss.UserControls.SearchCustomer();
             this.searchBookDriver = new Mortfors_buss.UserControls.SearchBookDriver();
+            this.cancelTravel = new Mortfors_buss.UserControls.CancelTrip();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -74,6 +75,14 @@
             this.searchBookDriver.TabIndex = 4;
             this.searchBookDriver.Visible = false;
             // 
+            // cancelTravel
+            // 
+            this.cancelTravel.Location = new System.Drawing.Point(0, 0);
+            this.cancelTravel.Name = "cancelTravel";
+            this.cancelTravel.Size = new System.Drawing.Size(500, 400);
+            this.cancelTravel.TabIndex = 5;
+            this.cancelTravel.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -84,6 +93,7 @@
             this.Controls.Add(this.searchBookTravel);
             this.Controls.Add(this.searchCustomer);
             this.Controls.Add(this.searchBookDriver);
+            this.Controls.Add(this.cancelTravel);
             this.Name = "MainForm";
             this.Text = "Mörtfors buss";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -98,6 +108,7 @@
         private UserControls.SearchBookTravel searchBookTravel;
         private UserControls.SearchCustomer searchCustomer;
         private UserControls.SearchBookDriver searchBookDriver;
+        private UserControls.CancelTrip cancelTravel;
     }
 }
 

@@ -40,7 +40,8 @@ namespace Mortfors_buss
                 {typeof(CustomerRegistration), customerRegistration},
                 {typeof(SearchBookTravel), searchBookTravel},
                 {typeof(SearchCustomer), searchCustomer},
-                {typeof(SearchBookDriver), searchBookDriver}
+                {typeof(SearchBookDriver), searchBookDriver},
+                {typeof(CancelTrip), cancelTravel }
             };
         }
 

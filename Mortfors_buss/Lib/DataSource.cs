@@ -182,19 +182,19 @@ namespace Mortfors_buss.Lib
 
                 if (lessThan.HasValue)
                 {
-                    commandText += "count(bookingschedule_id)<@lessthan ";
+                    commandText += "count(customer_id)<@lessthan ";
                     preparedStatement.AddParameter("lessthan", lessThan.Value, NpgsqlDbType.Integer);
                 }
 
                 if (equal.HasValue)
                 {
-                    commandText += lessThan.HasValue ? "or count(bookingschedule_id)=@equal " : "count(bookingschedule_id)=@equal ";
+                    commandText += lessThan.HasValue ? "or count(customer_id)=@equal " : "count(customer_id)=@equal ";
                     preparedStatement.AddParameter("equal", equal.Value, NpgsqlDbType.Integer);
                 }
 
                 if (greaterThan.HasValue)
                 {
-                    commandText += lessThan.HasValue || equal.HasValue ? "or count(bookingschedule_id)>@greaterthan " : "count(bookingschedule_id)>@greaterthan ";
+                    commandText += lessThan.HasValue || equal.HasValue ? "or count(customer_id)>@greaterthan " : "count(customer_id)>@greaterthan ";
                     preparedStatement.AddParameter("greaterthan", greaterThan.Value, NpgsqlDbType.Integer);
                 }
 
@@ -277,7 +277,7 @@ namespace Mortfors_buss.Lib
             }
         }
 
-        public bool RegisterDrivingSchedule(int weekNumber, string driverId, int busTripId)
+        public bool RegisterDrivingSchedule(int year, int week, string driverId, int tripId)
         {
             NpgsqlTransaction transaction = connection.BeginTransaction(IsolationLevel.Serializable);
 
@@ -287,11 +287,13 @@ namespace Mortfors_buss.Lib
                 {
                     preparedStatement.Transaction = transaction;
                     preparedStatement.CommandText =
-                        "insert into drivingschedule(weeknumber, driver_id, bustrip_id) " +
-                        "values (@weeknumber, @driver_id, @bustrip_id)";
-                    preparedStatement.AddParameter("weeknumber", weekNumber, NpgsqlDbType.Integer);
+                        "insert into drive (year, week, driver_id, trip_id) " +
+                        "values (@year, @week, @driver_id, @trip_id)";
+
+                    preparedStatement.AddParameter("year", year, NpgsqlDbType.Integer);
+                    preparedStatement.AddParameter("week", week, NpgsqlDbType.Integer);
                     preparedStatement.AddParameter("driver_id", driverId, NpgsqlDbType.Varchar);
-                    preparedStatement.AddParameter("bustrip_id", busTripId, NpgsqlDbType.Integer);
+                    preparedStatement.AddParameter("trip_id", tripId, NpgsqlDbType.Integer);
                     preparedStatement.Execute();
                 }
             }
@@ -302,6 +304,49 @@ namespace Mortfors_buss.Lib
             }
 
             transaction.Commit();
+            return true;
+        }
+
+        public DataSet GetNonCancelledTrip(int year, int week)
+        {
+            using (PreparedStatement preparedStatement = new PreparedStatement(connection))
+            {
+                preparedStatement.CommandText =
+                    "select id, " +
+                    "departurestop as avgång, to_char(departuretime, 'HH:MI') as avgångstid, " +
+                    "arrivalstop as ankomst, to_char(arrivaltime, 'HH:MI') as ankomsttid " +
+                    "from trip " +
+                    "left join cancelled on trip.id=cancelled.trip_id and year=@year and week=@week " +
+                    "where cancelled.trip_id is null";
+
+                preparedStatement.AddParameter("year", year, NpgsqlDbType.Integer);
+                preparedStatement.AddParameter("week", week, NpgsqlDbType.Integer);
+                preparedStatement.Execute();
+                return preparedStatement.GetDataSet();
+            }
+        }
+
+        public bool RegisterCancelledTrip(int year, int week, int id)
+        {
+            try
+            {
+                using (PreparedStatement preparedStatement = new PreparedStatement(connection))
+                {
+                    preparedStatement.CommandText =
+                        "insert into cancelled (year, week, trip_id) " +
+                        "values (@year, @week, @id)";
+
+                    preparedStatement.AddParameter("year", year, NpgsqlDbType.Integer);
+                    preparedStatement.AddParameter("week", week, NpgsqlDbType.Integer);
+                    preparedStatement.AddParameter("id", id, NpgsqlDbType.Integer);
+                    preparedStatement.Execute();
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            
             return true;
         }
     }

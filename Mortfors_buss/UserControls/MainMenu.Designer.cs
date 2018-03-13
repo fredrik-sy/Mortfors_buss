@@ -33,7 +33,7 @@
             this.btnSearchBookTravel = new System.Windows.Forms.Button();
             this.btnSearchCustomer = new System.Windows.Forms.Button();
             this.btnSearchBookDriver = new System.Windows.Forms.Button();
-            this.btnCancelTrip = new System.Windows.Forms.Button();
+            this.btnCancelTravel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCustomerRegistration
@@ -86,20 +86,21 @@
             this.btnSearchBookDriver.UseVisualStyleBackColor = true;
             this.btnSearchBookDriver.Click += new System.EventHandler(this.BtnSearchBookDriver_Click);
             // 
-            // btnCancelTrip
+            // btnCancelTravel
             // 
-            this.btnCancelTrip.Location = new System.Drawing.Point(270, 100);
-            this.btnCancelTrip.Name = "btnCancelTrip";
-            this.btnCancelTrip.Size = new System.Drawing.Size(140, 40);
-            this.btnCancelTrip.TabIndex = 5;
-            this.btnCancelTrip.Text = "Ställ in resa";
-            this.btnCancelTrip.UseVisualStyleBackColor = true;
+            this.btnCancelTravel.Location = new System.Drawing.Point(270, 100);
+            this.btnCancelTravel.Name = "btnCancelTravel";
+            this.btnCancelTravel.Size = new System.Drawing.Size(140, 40);
+            this.btnCancelTravel.TabIndex = 5;
+            this.btnCancelTravel.Text = "Ställ in resa";
+            this.btnCancelTravel.UseVisualStyleBackColor = true;
+            this.btnCancelTravel.Click += new System.EventHandler(this.btnCancelTravel_Click);
             // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnCancelTrip);
+            this.Controls.Add(this.btnCancelTravel);
             this.Controls.Add(this.btnSearchBookDriver);
             this.Controls.Add(this.btnSearchCustomer);
             this.Controls.Add(this.btnSearchBookTravel);
@@ -119,6 +120,6 @@
         private System.Windows.Forms.Button btnSearchBookTravel;
         private System.Windows.Forms.Button btnSearchCustomer;
         private System.Windows.Forms.Button btnSearchBookDriver;
-        private System.Windows.Forms.Button btnCancelTrip;
+        private System.Windows.Forms.Button btnCancelTravel;
     }
 }

@@ -8,12 +8,12 @@ namespace Mortfors_buss.Lib
 {
     internal enum DayOfVecka
     {
-        Söndag,
-        Måndag,
-        Tisdag,
-        Onsdag,
-        Torsdag,
-        Fredag,
-        Lördag,
+        Måndag = 1,
+        Tisdag = 2,
+        Onsdag = 3,
+        Torsdag = 4,
+        Fredag = 5,
+        Lördag = 6,
+        Söndag = 7
     }
 }

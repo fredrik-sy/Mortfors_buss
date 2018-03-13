@@ -60,8 +60,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lib\ControlUtil.cs" />
     <Compile Include="Lib\DayOfVecka.cs" />
+    <Compile Include="Lib\ErrorMessage.cs" />
     <Compile Include="Lib\Statement.cs" />
+    <Compile Include="UserControls\CancelTrip.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\CancelTrip.Designer.cs">
+      <DependentUpon>CancelTrip.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SearchBookTravel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -102,6 +110,9 @@
     <Compile Include="UserControls\SearchBookDriver.Designer.cs">
       <DependentUpon>SearchBookDriver.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserControls\CancelTrip.resx">
+      <DependentUpon>CancelTrip.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\SearchBookTravel.resx">
       <DependentUpon>SearchBookTravel.cs</DependentUpon>
     </EmbeddedResource>

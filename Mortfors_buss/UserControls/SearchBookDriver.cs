@@ -92,7 +92,7 @@ namespace Mortfors_buss.UserControls
             KeyValuePair<DataRow, string> selectedTime = (KeyValuePair<DataRow, string>)cmbTime.SelectedItem;
             KeyValuePair<string, string> selectedDriver = (KeyValuePair<string, string>)cmbDriver.SelectedItem;
 
-            if (MainForm.DataSource.RegisterDrivingSchedule(weekNumber, selectedDriver.Key,
+            if (MainForm.DataSource.RegisterDrivingSchedule(2018, weekNumber, selectedDriver.Key,
                 selectedTime.Key.Field<int>("bustrip_id")))
             {
                 BtnBack_Click(null, null);

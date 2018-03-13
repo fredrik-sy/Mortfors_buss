@@ -33,5 +33,11 @@ namespace Mortfors_buss.UserControls
             Visible = false;
             MainForm.UserControls[typeof(SearchBookDriver)].Visible = true;
         }
+
+        private void btnCancelTravel_Click(object sender, EventArgs e)
+        {
+            Visible = false;
+            MainForm.UserControls[typeof(CancelTrip)].Visible = true;
+        }
     }
 }

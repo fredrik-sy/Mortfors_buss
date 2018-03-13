@@ -44,5 +44,13 @@ namespace Mortfors_buss.UserControls
             string caption = string.Empty;
             MessageBox.Show(text, caption, MessageBoxButtons.OK);
         }
+        
+        private void ClearData()
+        {
+            txtAddress.Clear();
+            txtEmail.Clear();
+            txtName.Clear();
+            txtPhone.Clear();
+        }
     }
 }
