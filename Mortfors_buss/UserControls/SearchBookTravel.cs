@@ -40,11 +40,11 @@ namespace Mortfors_buss.UserControls
                     {
                         try
                         {
-                            bookingScheduleCollection = MainForm.DataSource.RetrieveBookingSchedule(weekNumber)
+                            bookingScheduleCollection = MainForm.DataSource.RetrieveBookingSchedule(2018, weekNumber)
                                 .Tables[0]
                                 .AsEnumerable();
 
-                            busTripCollection = MainForm.DataSource.RetrieveBusTrip(weekNumber)
+                            busTripCollection = MainForm.DataSource.RetrieveBusTrip(2018, weekNumber)
                                 .Tables[0]
                                 .AsEnumerable();
 
@@ -142,8 +142,8 @@ namespace Mortfors_buss.UserControls
                 .ElementAt(cmbTime.SelectedIndex);
 
             int bookingCount = bookingScheduleCollection.Where(r =>
-                    r.Field<int>("bustrip_id") == busTrip.Field<int>("bustrip_id") &&
-                    r.Field<int>("weeknumber") == weekNumber)
+                    r.Field<int>("trip_id") == busTrip.Field<int>("id") &&
+                    r.Field<int>("week") == weekNumber)
                 .Select(r => r.Field<int>("numberofseats"))
                 .Sum();
 
@@ -221,19 +221,19 @@ namespace Mortfors_buss.UserControls
             }
 
             int bookingCount = bookingScheduleCollection.Where(r =>
-                    r.Field<int>("bustrip_id") == busTrip.Field<int>("bustrip_id") &&
-                    r.Field<int>("weeknumber") == weekNumber)
+                    r.Field<int>("trip_id") == busTrip.Field<int>("id") &&
+                    r.Field<int>("week") == weekNumber)
                 .Select(r => r.Field<int>("numberofseats"))
                 .Sum();
 
             string customerId = cmbCustomer.Text;
             int numberOfSeats = int.Parse(txtNumberOfSeats.Text);
-            int busTripId = busTrip.Field<int>("bustrip_id");
+            int busTripId = busTrip.Field<int>("id");
             int capacity = busTrip.Field<int>("capacity");
 
             if (bookingCount + numberOfSeats <= capacity)
             {
-                if (MainForm.DataSource.RegisterBookingSchedule(weekNumber, customerId, busTripId, numberOfSeats))
+                if (MainForm.DataSource.RegisterBookingSchedule(2018, weekNumber, customerId, busTripId, numberOfSeats))
                 {
                     BtnBack_Click(null, null);
                     return;

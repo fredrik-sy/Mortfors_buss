@@ -34,11 +34,11 @@ namespace Mortfors_buss.UserControls
                     {
                         try
                         {
-                            drivingScheduleCollection = MainForm.DataSource.RetrieveDrivingSchedule(weekNumber)
+                            drivingScheduleCollection = MainForm.DataSource.RetrieveDrivingSchedule(2018, weekNumber)
                                 .Tables[0]
                                 .AsEnumerable();
 
-                            driverScheduleCollection = MainForm.DataSource.RetrieveDriverSchedule(weekNumber)
+                            driverScheduleCollection = MainForm.DataSource.RetrieveDriverSchedule(2018, weekNumber)
                                 .Tables[0]
                                 .AsEnumerable();
 
@@ -93,7 +93,7 @@ namespace Mortfors_buss.UserControls
             KeyValuePair<string, string> selectedDriver = (KeyValuePair<string, string>)cmbDriver.SelectedItem;
 
             if (MainForm.DataSource.RegisterDrivingSchedule(2018, weekNumber, selectedDriver.Key,
-                selectedTime.Key.Field<int>("bustrip_id")))
+                selectedTime.Key.Field<int>("id")))
             {
                 BtnBack_Click(null, null);
                 return;
