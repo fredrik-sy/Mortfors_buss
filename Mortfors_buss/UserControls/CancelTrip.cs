@@ -35,7 +35,6 @@ namespace Mortfors_buss.UserControls
         {
             if (MainForm.DataSource.RegisterCancelledTrip(year, week, id))
             {
-                ControlUtil.ClearControls(Controls);
                 BtnBack_Click(null, null);
             }
             else
@@ -46,25 +45,24 @@ namespace Mortfors_buss.UserControls
 
         private void BtnSearch_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtYear.Text) || string.IsNullOrEmpty(txtWeek.Text))
+            if (!(string.IsNullOrEmpty(txtYear.Text) || string.IsNullOrEmpty(txtWeek.Text)))
             {
-                ErrorMessage.Show("Ogiltigt värde");
-                return;
+                if (int.TryParse(txtYear.Text, out year) && int.TryParse(txtWeek.Text, out week))
+                {
+                    try
+                    {
+                        DataSet data = MainForm.DataSource.GetNonCancelledTrip(year, week);
+                        DataTable table = data.Tables[0];
+                        dgvNonCancelledTrip.DataSource = table;
+                        return;
+                    }
+                    catch
+                    {
+                    }
+                }
             }
 
-            if (int.TryParse(txtYear.Text, out year) && int.TryParse(txtWeek.Text, out week))
-            {
-                try
-                {
-                    DataSet data = MainForm.DataSource.GetNonCancelledTrip(year, week);
-                    DataTable table = data.Tables[0];
-                    dgvNonCancelledTrip.DataSource = table;
-                }
-                catch
-                {
-                    ErrorMessage.Show("Ogiltigt värde");
-                }
-            }
+            ErrorMessage.Show("Ogiltigt värde");
         }
 
         private void DgvNonCancelledTrip_CellClick(object sender, DataGridViewCellEventArgs e)
