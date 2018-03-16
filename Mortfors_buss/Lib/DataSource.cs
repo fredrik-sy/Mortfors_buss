@@ -86,15 +86,12 @@ namespace Mortfors_buss.Lib
             return true;
         }
 
-        public bool RegisterBookingSchedule(int year, int week, string customerId, int tripId, int numberOfSeats)
+        public bool RegisterBooking(int year, int week, string customerId, int tripId, int numberOfSeats)
         {
-            NpgsqlTransaction transaction = connection.BeginTransaction(IsolationLevel.Serializable);
-
             try
             {
                 using (PreparedStatement preparedStatement = new PreparedStatement(connection))
                 {
-                    preparedStatement.Transaction = transaction;
                     preparedStatement.CommandText =
                         "insert into booking(year, week, customer_id, trip_id, numberofseats) " +
                         "values (@year, @week, @customer_id, @trip_id, @numberofseats)";
@@ -109,11 +106,9 @@ namespace Mortfors_buss.Lib
             }
             catch
             {
-                transaction.Rollback();
                 return false;
             }
-
-            transaction.Commit();
+            
             return true;
         }
 
@@ -158,7 +153,7 @@ namespace Mortfors_buss.Lib
             }
         }
 
-        public DataSet RetrieveCustomerEmail()
+        public DataSet RetrieveCustomersEmail()
         {
             using (Statement statement = new Statement(connection))
             {
@@ -171,7 +166,7 @@ namespace Mortfors_buss.Lib
             }
         }
 
-        public DataSet RetrieveCustomerNumberOfTrip(int? lessThan, int? equal, int? greaterThan)
+        public DataSet RetrieveCustomersNumberOfTrip(int? lessThan, int? equal, int? greaterThan)
         {
             using (PreparedStatement preparedStatement = new PreparedStatement(connection))
             {
@@ -220,7 +215,7 @@ namespace Mortfors_buss.Lib
             }
         }
 
-        public DataSet RetrieveCustomerBusTrip(string email)
+        public DataSet RetrieveCustomersTrip(string email)
         {
             using (PreparedStatement preparedStatement = new PreparedStatement(connection))
             {
@@ -245,7 +240,7 @@ namespace Mortfors_buss.Lib
             }
         }
 
-        public DataSet RetrieveDrivingSchedule(int year, int week)
+        public DataSet RetrieveDriversTrip(int year, int week)
         {
             using (PreparedStatement preparedStatement = new PreparedStatement(connection))
             {
@@ -270,7 +265,7 @@ namespace Mortfors_buss.Lib
             }
         }
 
-        public DataSet RetrieveDriverSchedule(int year, int week)
+        public DataSet RetrieveDriversDrive(int year, int week)
         {
             using (PreparedStatement preparedStatement = new PreparedStatement(connection))
             {
@@ -297,7 +292,7 @@ namespace Mortfors_buss.Lib
             }
         }
 
-        public bool RegisterDrivingSchedule(int year, int week, string driverId, int tripId)
+        public bool RegisterDrive(int year, int week, string driverId, int tripId)
         {
             NpgsqlTransaction transaction = connection.BeginTransaction(IsolationLevel.Serializable);
 

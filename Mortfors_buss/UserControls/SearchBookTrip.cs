@@ -49,7 +49,7 @@ namespace Mortfors_buss.UserControls
                                 .Tables[0]
                                 .AsEnumerable();
 
-                            List<string> emailList = MainForm.DataSource.RetrieveCustomerEmail()
+                            List<string> emailList = MainForm.DataSource.RetrieveCustomersEmail()
                                 .Tables[0]
                                 .AsEnumerable()
                                 .Select(r => r.Field<string>("email"))
@@ -163,7 +163,7 @@ namespace Mortfors_buss.UserControls
 
                 if (numberOfSeatsBooked + numberOfSeats <= capacity)
                 {
-                    if (MainForm.DataSource.RegisterBookingSchedule(year, week, customerId, tripId, numberOfSeats))
+                    if (MainForm.DataSource.RegisterBooking(year, week, customerId, tripId, numberOfSeats))
                     {
                         BtnBack_Click(null, null);
                         return;

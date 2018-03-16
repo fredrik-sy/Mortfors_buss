@@ -39,9 +39,11 @@
             this.label4 = new System.Windows.Forms.Label();
             this.cmbFrom = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtWeekNumber = new System.Windows.Forms.TextBox();
+            this.txtWeek = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.txtYear = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cmbDriver
@@ -154,21 +156,21 @@
             this.label3.TabIndex = 24;
             this.label3.Text = "Från";
             // 
-            // txtWeekNumber
+            // txtWeek
             // 
-            this.txtWeekNumber.Location = new System.Drawing.Point(112, 93);
-            this.txtWeekNumber.Name = "txtWeekNumber";
-            this.txtWeekNumber.Size = new System.Drawing.Size(30, 20);
-            this.txtWeekNumber.TabIndex = 23;
+            this.txtWeek.Location = new System.Drawing.Point(157, 93);
+            this.txtWeek.Name = "txtWeek";
+            this.txtWeek.Size = new System.Drawing.Size(30, 20);
+            this.txtWeek.TabIndex = 23;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(27, 96);
+            this.label2.Location = new System.Drawing.Point(110, 96);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(75, 13);
+            this.label2.Size = new System.Drawing.Size(38, 13);
             this.label2.TabIndex = 22;
-            this.label2.Text = "Veckonummer";
+            this.label2.Text = "Vecka";
             // 
             // label1
             // 
@@ -180,10 +182,28 @@
             this.label1.TabIndex = 21;
             this.label1.Text = "Boka chaufför";
             // 
+            // txtYear
+            // 
+            this.txtYear.Location = new System.Drawing.Point(52, 93);
+            this.txtYear.Name = "txtYear";
+            this.txtYear.Size = new System.Drawing.Size(40, 20);
+            this.txtYear.TabIndex = 57;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(27, 96);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(17, 13);
+            this.label10.TabIndex = 56;
+            this.label10.Text = "År";
+            // 
             // SearchBookDriver
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.txtYear);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.cmbDriver);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.btnSearch);
@@ -195,7 +215,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cmbFrom);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtWeekNumber);
+            this.Controls.Add(this.txtWeek);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "SearchBookDriver";
@@ -218,8 +238,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cmbFrom;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtWeekNumber;
+        private System.Windows.Forms.TextBox txtWeek;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtYear;
+        private System.Windows.Forms.Label label10;
     }
 }

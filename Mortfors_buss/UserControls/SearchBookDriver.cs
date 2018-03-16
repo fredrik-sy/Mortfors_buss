@@ -14,10 +14,11 @@ namespace Mortfors_buss.UserControls
 {
     public partial class SearchBookDriver : UserControl
     {
-        private EnumerableRowCollection<DataRow> drivingScheduleCollection;
-        private EnumerableRowCollection<DataRow> driverScheduleCollection;
+        private EnumerableRowCollection<DataRow> tripCollection;
+        private EnumerableRowCollection<DataRow> driveCollection;
         private EnumerableRowCollection<DataRow> driverCollection;
-        private int weekNumber;
+        private int year;
+        private int week;
 
         public SearchBookDriver()
         {
@@ -26,19 +27,19 @@ namespace Mortfors_buss.UserControls
 
         private void BtnSearch_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtWeekNumber.Text))
+            if (!(string.IsNullOrEmpty(txtYear.Text) || string.IsNullOrEmpty(txtWeek.Text)))
             {
-                if (int.TryParse(txtWeekNumber.Text, out weekNumber))
+                if (int.TryParse(txtYear.Text, out year) && int.TryParse(txtWeek.Text, out week))
                 {
-                    if (weekNumber > 0 && weekNumber < 54)
+                    if (year > 2016 && week > 0 && week < 54)
                     {
                         try
                         {
-                            drivingScheduleCollection = MainForm.DataSource.RetrieveDrivingSchedule(2018, weekNumber)
+                            tripCollection = MainForm.DataSource.RetrieveDriversTrip(year, week)
                                 .Tables[0]
                                 .AsEnumerable();
 
-                            driverScheduleCollection = MainForm.DataSource.RetrieveDriverSchedule(2018, weekNumber)
+                            driveCollection = MainForm.DataSource.RetrieveDriversDrive(year, week)
                                 .Tables[0]
                                 .AsEnumerable();
 
@@ -46,7 +47,7 @@ namespace Mortfors_buss.UserControls
                                 .Tables[0]
                                 .AsEnumerable();
 
-                            List<KeyValuePair<string, string>> departureStopList = drivingScheduleCollection.Select(r =>
+                            List<KeyValuePair<string, string>> departureList = tripCollection.Select(r =>
                                     new KeyValuePair<string, string>(
                                         r.Field<string>("departurestop"),
                                         r.Field<string>("departurestop") + ", " +
@@ -57,7 +58,7 @@ namespace Mortfors_buss.UserControls
                             
                             btnBook.Enabled = true;
                             cmbFrom.Enabled = true;
-                            cmbFrom.DataSource = new BindingSource(departureStopList, null);
+                            cmbFrom.DataSource = new BindingSource(departureList, null);
                             cmbFrom.DisplayMember = "Value";
                             cmbFrom.ValueMember = "Key";
                             cmbTo.Enabled = true;
@@ -71,15 +72,14 @@ namespace Mortfors_buss.UserControls
                 }
             }
 
-            ShowErrorBox("Ogiltig veckonummer");
-            ClearData();
+            ErrorMessage.Show("Ogiltig år eller vecka");
+            ClearControls();
         }
 
         private void BtnBack_Click(object sender, EventArgs e)
         {
-            Visible = false;
-            ClearData();
-            MainForm.UserControls[typeof(MainMenu)].Visible = true;
+            ClearControls();
+            ControlUtils.ChangeControl(this, typeof(MainMenu));
         }
 
         private void BtnBook_Click(object sender, EventArgs e)
@@ -92,135 +92,114 @@ namespace Mortfors_buss.UserControls
             KeyValuePair<DataRow, string> selectedTime = (KeyValuePair<DataRow, string>)cmbTime.SelectedItem;
             KeyValuePair<string, string> selectedDriver = (KeyValuePair<string, string>)cmbDriver.SelectedItem;
 
-            if (MainForm.DataSource.RegisterDrivingSchedule(2018, weekNumber, selectedDriver.Key,
+            if (MainForm.DataSource.RegisterDrive(year, week, selectedDriver.Key,
                 selectedTime.Key.Field<int>("id")))
             {
                 BtnBack_Click(null, null);
                 return;
             }
 
-            ShowErrorBox("Fel uppstod vid kommunikation med databasen");
+            ErrorMessage.Show("Fel uppstod vid kommunikation med databasen");
         }
 
         private void CmbFrom_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (drivingScheduleCollection == null)
+            if (tripCollection != null)
             {
-                return;
+                List<KeyValuePair<string, string>> arrivalList = tripCollection.Where(r =>
+                        r.Field<string>("departurestop") == ((KeyValuePair<string, string>)cmbFrom.SelectedItem).Key)
+                    .Select(r => new KeyValuePair<string, string>(
+                        r.Field<string>("arrivalstop"),
+                        r.Field<string>("arrivalstop") + ", " +
+                        r.Field<string>("arrivalcountry") + ", " +
+                        r.Field<string>("arrivalstreet")))
+                    .Distinct()
+                    .ToList();
+
+                cmbTo.DataSource = new BindingSource(arrivalList, null);
+                cmbTo.DisplayMember = "Value";
+                cmbTo.ValueMember = "Key";
             }
-
-            List<KeyValuePair<string, string>> arrivalStopList = drivingScheduleCollection.Where(r =>
-                    r.Field<string>("departurestop") == ((KeyValuePair<string, string>)cmbFrom.SelectedItem).Key)
-                .Select(r => new KeyValuePair<string, string>(
-                    r.Field<string>("arrivalstop"),
-                    r.Field<string>("arrivalstop") + ", " +
-                    r.Field<string>("arrivalcountry") + ", " +
-                    r.Field<string>("arrivalstreet")))
-                .Distinct()
-                .ToList();
-
-            cmbTo.DataSource = new BindingSource(arrivalStopList, null);
-            cmbTo.DisplayMember = "Value";
-            cmbTo.ValueMember = "Key";
         }
 
         private void CmbTo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (drivingScheduleCollection == null)
+            if (tripCollection != null)
             {
-                return;
+                Dictionary<DataRow, string> timeDictionary = tripCollection.Where(r =>
+                        r.Field<string>("departurestop") == ((KeyValuePair<string, string>)cmbFrom.SelectedItem).Key &&
+                        r.Field<string>("arrivalstop") == ((KeyValuePair<string, string>)cmbTo.SelectedItem).Key)
+                    .ToDictionary(
+                        r => r,
+                        r => Enum.GetName(typeof(DayOfWeek2), r.Field<int>("dayofweek")) + " " +
+                             r.Field<TimeSpan>("departuretime").ToString(@"hh\:mm") + " - " +
+                             r.Field<TimeSpan>("arrivaltime").ToString(@"hh\:mm"));
+
+                cmbTime.DataSource = new BindingSource(timeDictionary, null);
+                cmbTime.DisplayMember = "Value";
+                cmbTime.ValueMember = "Key";
             }
-
-            Dictionary<DataRow, string> dayTimeDictionary = drivingScheduleCollection.Where(r =>
-                    r.Field<string>("departurestop") == ((KeyValuePair<string, string>)cmbFrom.SelectedItem).Key &&
-                    r.Field<string>("arrivalstop") == ((KeyValuePair<string, string>)cmbTo.SelectedItem).Key)
-                .ToDictionary(
-                    r => r,
-                    r => Enum.GetName(typeof(DayOfWeek2), r.Field<int>("dayofweek")) + " " +
-                         r.Field<TimeSpan>("departuretime").ToString(@"hh\:mm") + " - " +
-                         r.Field<TimeSpan>("arrivaltime").ToString(@"hh\:mm"));
-
-            cmbTime.DataSource = new BindingSource(dayTimeDictionary, null);
-            cmbTime.DisplayMember = "Value";
-            cmbTime.ValueMember = "Key";
         }
 
         private void CmbTime_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (drivingScheduleCollection == null)
+            if (tripCollection != null)
             {
-                return;
-            }
-            
-            if (cmbTime.SelectedItem is KeyValuePair<DataRow, string> schedule)
-            {
-                TimeSpan scheduleTime1 = schedule.Key.Field<TimeSpan>("departuretime");
-                TimeSpan scheduleTime2 = schedule.Key.Field<TimeSpan>("arrivaltime");
-
-                Dictionary<string, string> driverDictionary = driverCollection.Where(r =>
+                if (cmbTime.SelectedItem is KeyValuePair<DataRow, string> time)
                 {
-                    return !driverScheduleCollection.Any(n =>
-                    {
-                        if (r.Field<string>("personalnumber") == n.Field<string>("driver_id"))
-                        {
-                            if (schedule.Key.Field<int>("dayofweek") == n.Field<int>("dayofweek"))
-                            {
-                                TimeSpan time1 = n.Field<TimeSpan>("departuretime");
-                                TimeSpan time2 = n.Field<TimeSpan>("arrivaltime");
+                    TimeSpan departureTime1 = time.Key.Field<TimeSpan>("departuretime");
+                    TimeSpan arrivalTime1 = time.Key.Field<TimeSpan>("arrivaltime");
 
-                                if (time1.Ticks > scheduleTime1.Ticks && time1.Ticks < scheduleTime1.Ticks ||
-                                    time2.Ticks > scheduleTime2.Ticks && time2.Ticks < scheduleTime2.Ticks)
+                    // Filter driver since driver should not be able to register trips 
+                    // that has conflict with the drivers drive time.
+                    Dictionary<string, string> driverDictionary = driverCollection.Where(r =>
+                    {
+                        return !driveCollection.Any(n =>
+                        {
+                            if (r.Field<string>("personalnumber") == n.Field<string>("driver_id"))
+                            {
+                                if (time.Key.Field<int>("dayofweek") == n.Field<int>("dayofweek"))
                                 {
-                                    return true;
+                                    TimeSpan departureTime2 = n.Field<TimeSpan>("departuretime");
+                                    TimeSpan arrivalTime2 = n.Field<TimeSpan>("arrivaltime");
+
+                                    if (departureTime2.Ticks > departureTime1.Ticks && departureTime2.Ticks < departureTime1.Ticks ||
+                                        arrivalTime2.Ticks > arrivalTime1.Ticks && arrivalTime2.Ticks < arrivalTime1.Ticks)
+                                    {
+                                        return true;
+                                    }
                                 }
                             }
-                        }
 
-                        return false;
-                    });
-                }).ToDictionary(
-                    r => r.Field<string>("personalnumber"),
-                    r => r.Field<string>("personalnumber") + ", " +
-                         r.Field<string>("name"));
+                            return false;
+                        });
+                    }).ToDictionary(
+                        r => r.Field<string>("personalnumber"),
+                        r => r.Field<string>("personalnumber") + ", " +
+                             r.Field<string>("name"));
 
-                if (driverDictionary.Count > 0)
-                {
-                    cmbDriver.Enabled = true;
-                    cmbDriver.DataSource = new BindingSource(driverDictionary, null);
-                    cmbDriver.DisplayMember = "Value";
-                    cmbDriver.ValueMember = "Key";
+                    if (driverDictionary.Count > 0)
+                    {
+                        cmbDriver.Enabled = true;
+                        cmbDriver.DataSource = new BindingSource(driverDictionary, null);
+                        cmbDriver.DisplayMember = "Value";
+                        cmbDriver.ValueMember = "Key";
+                    }
                 }
             }
         }
 
-        private void ClearData()
+        private void ClearControls()
         {
-            drivingScheduleCollection = null;
+            tripCollection = null;
 
-            cmbFrom.DataSource = null;
-            cmbFrom.Enabled = false;
-            cmbFrom.Text = string.Empty;
-
-            cmbTo.DataSource = null;
-            cmbTo.Enabled = false;
-            cmbTo.Text = string.Empty;
-
-            cmbTime.DataSource = null;
-            cmbTime.Enabled = false;
-            cmbTime.Text = string.Empty;
-
-            cmbDriver.DataSource = null;
-            cmbDriver.Enabled = false;
-            cmbDriver.Text = string.Empty;
-
-            txtWeekNumber.Clear();
             btnBook.Enabled = false;
-        }
+            cmbFrom.Enabled = false;
+            cmbTo.Enabled = false;
+            cmbTime.Enabled = false;
+            cmbDriver.Enabled = false;
 
-        private void ShowErrorBox(string text)
-        {
-            string caption = string.Empty;
-            MessageBox.Show(text, caption, MessageBoxButtons.OK);
+            ControlUtils.ClearControls(Controls);
         }
     }
 }

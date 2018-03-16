@@ -24,10 +24,16 @@ namespace Mortfors_buss.Lib
             {
                 switch (control)
                 {
+                    case CheckBox checkBox:
+                        checkBox.Checked = false;
+                        break;
                     case ComboBox comboBox:
                         comboBox.DataSource = null;
                         comboBox.Items.Clear();
                         comboBox.ResetText();
+                        break;
+                    case GroupBox groupBox:
+                        ClearControls(groupBox.Controls);
                         break;
                     case TextBox textBox:
                         textBox.Clear();

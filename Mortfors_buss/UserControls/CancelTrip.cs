@@ -60,7 +60,7 @@ namespace Mortfors_buss.UserControls
                 }
             }
 
-            ErrorMessage.Show("Ogiltigt värde");
+            ErrorMessage.Show("Ogiltigt år eller vecka");
         }
 
         private void DgvNonCancelledTrip_CellClick(object sender, DataGridViewCellEventArgs e)

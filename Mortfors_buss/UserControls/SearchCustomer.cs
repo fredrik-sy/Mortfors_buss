@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Mortfors_buss.Lib;
 
 namespace Mortfors_buss.UserControls
 {
@@ -29,6 +30,11 @@ namespace Mortfors_buss.UserControls
                 {
                     lessThan = result;
                 }
+                else
+                {
+                    chkLessThan.Checked = false;
+                    txtLessThan.Text = string.Empty;
+                }
             }
 
             if (chkEqual.Checked)
@@ -36,6 +42,11 @@ namespace Mortfors_buss.UserControls
                 if (int.TryParse(txtEqual.Text, out int result))
                 {
                     equal = result;
+                }
+                else
+                {
+                    chkLessThan.Checked = false;
+                    txtLessThan.Text = string.Empty;
                 }
             }
 
@@ -46,17 +57,20 @@ namespace Mortfors_buss.UserControls
                 {
                     greaterThan = result;
                 }
+                else
+                {
+                    chkLessThan.Checked = false;
+                    txtLessThan.Text = string.Empty;
+                }
             }
 
-            DataSet dataSet = MainForm.DataSource.RetrieveCustomerNumberOfTrip(lessThan, equal, greaterThan);
+            DataSet dataSet = MainForm.DataSource.RetrieveCustomersNumberOfTrip(lessThan, equal, greaterThan);
             dgvCustomer.DataSource = dataSet.Tables[0];
         }
 
         private void BtnBack_Click(object sender, EventArgs e)
         {
-            Visible = false;
-            ClearData();
-            MainForm.UserControls[typeof(MainMenu)].Visible = true;
+            ControlUtils.ChangeControl(this, typeof(MainMenu));
         }
 
         private void DgvCustomer_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -66,27 +80,10 @@ namespace Mortfors_buss.UserControls
                 if (dgv.CurrentRow.Selected)
                 {
                     string email = dgv.Rows[dgv.SelectedRows[0].Index].Cells[0].Value.ToString();
-                    DataSet dataSet = MainForm.DataSource.RetrieveCustomerBusTrip(email);
-                    dgvBusTrip.DataSource = dataSet.Tables[0];
+                    DataSet dataSet = MainForm.DataSource.RetrieveCustomersTrip(email);
+                    dgvTrip.DataSource = dataSet.Tables[0];
                 }
             }
-        }
-
-        private void ClearData()
-        {
-            chkLessThan.Checked = false;
-            chkEqual.Checked = false;
-            chkGreaterThan.Checked = false;
-
-            txtLessThan.Text = string.Empty;
-            txtEqual.Text = string.Empty;
-            txtGreaterThan.Text = string.Empty;
-
-            dgvCustomer.DataSource = null;
-            dgvCustomer.Rows.Clear();
-
-            dgvBusTrip.DataSource = null;
-            dgvBusTrip.Rows.Clear();
         }
     }
 }

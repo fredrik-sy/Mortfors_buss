@@ -39,10 +39,10 @@
             this.txtGreaterThan = new System.Windows.Forms.TextBox();
             this.chkGreaterThan = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dgvBusTrip = new System.Windows.Forms.DataGridView();
+            this.dgvTrip = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomer)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvBusTrip)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTrip)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -154,23 +154,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Antal turer";
             // 
-            // dgvBusTrip
+            // dgvTrip
             // 
-            this.dgvBusTrip.AllowUserToAddRows = false;
-            this.dgvBusTrip.AllowUserToDeleteRows = false;
-            this.dgvBusTrip.AllowUserToOrderColumns = true;
-            this.dgvBusTrip.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvBusTrip.Location = new System.Drawing.Point(30, 276);
-            this.dgvBusTrip.Name = "dgvBusTrip";
-            this.dgvBusTrip.ReadOnly = true;
-            this.dgvBusTrip.Size = new System.Drawing.Size(440, 105);
-            this.dgvBusTrip.TabIndex = 12;
+            this.dgvTrip.AllowUserToAddRows = false;
+            this.dgvTrip.AllowUserToDeleteRows = false;
+            this.dgvTrip.AllowUserToOrderColumns = true;
+            this.dgvTrip.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTrip.Location = new System.Drawing.Point(30, 276);
+            this.dgvTrip.Name = "dgvTrip";
+            this.dgvTrip.ReadOnly = true;
+            this.dgvTrip.Size = new System.Drawing.Size(440, 105);
+            this.dgvTrip.TabIndex = 12;
             // 
             // SearchCustomer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.dgvBusTrip);
+            this.Controls.Add(this.dgvTrip);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnFilter);
             this.Controls.Add(this.btnBack);
@@ -181,7 +181,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomer)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvBusTrip)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTrip)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -200,6 +200,6 @@
         private System.Windows.Forms.TextBox txtGreaterThan;
         private System.Windows.Forms.CheckBox chkGreaterThan;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridView dgvBusTrip;
+        private System.Windows.Forms.DataGridView dgvTrip;
     }
 }
