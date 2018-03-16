@@ -26,9 +26,7 @@ namespace Mortfors_buss.UserControls
         private void BtnBack_Click(object sender, EventArgs e)
         {
             btnCancelTrip.Enabled = false;
-            Visible = false;
-            ControlUtil.ClearControls(Controls);
-            MainForm.UserControls[typeof(MainMenu)].Visible = true;
+            ControlUtil.ChangeControl(this, typeof(MainMenu));
         }
 
         private void BtnCancelTrip_Click(object sender, EventArgs e)

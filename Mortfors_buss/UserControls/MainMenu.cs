@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Mortfors_buss.Lib;
 
 namespace Mortfors_buss.UserControls
 {
@@ -12,32 +13,27 @@ namespace Mortfors_buss.UserControls
 
         private void BtnCustomerRegistration_Click(object sender, EventArgs e)
         {
-            Visible = false;
-            MainForm.UserControls[typeof(CustomerRegistration)].Visible = true;
+            ControlUtil.ChangeControl(this, typeof(CustomerRegistration));
         }
 
         private void BtnSearchBookTravel_Click(object sender, EventArgs e)
         {
-            Visible = false;
-            MainForm.UserControls[typeof(SearchBookTravel)].Visible = true;
+            ControlUtil.ChangeControl(this, typeof(SearchBookTravel));
         }
 
         private void BtnSearchCustomer_Click(object sender, EventArgs e)
         {
-            Visible = false;
-            MainForm.UserControls[typeof(SearchCustomer)].Visible = true;
+            ControlUtil.ChangeControl(this, typeof(SearchCustomer));
         }
 
         private void BtnSearchBookDriver_Click(object sender, EventArgs e)
         {
-            Visible = false;
-            MainForm.UserControls[typeof(SearchBookDriver)].Visible = true;
+            ControlUtil.ChangeControl(this, typeof(SearchBookDriver));
         }
 
-        private void btnCancelTravel_Click(object sender, EventArgs e)
+        private void BtnCancelTravel_Click(object sender, EventArgs e)
         {
-            Visible = false;
-            MainForm.UserControls[typeof(CancelTrip)].Visible = true;
+            ControlUtil.ChangeControl(this, typeof(CancelTrip));
         }
     }
 }

@@ -94,7 +94,7 @@
             this.btnCancelTravel.TabIndex = 5;
             this.btnCancelTravel.Text = "Ställ in resa";
             this.btnCancelTravel.UseVisualStyleBackColor = true;
-            this.btnCancelTravel.Click += new System.EventHandler(this.btnCancelTravel_Click);
+            this.btnCancelTravel.Click += new System.EventHandler(this.BtnCancelTravel_Click);
             // 
             // MainMenu
             // 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Mortfors_buss.Lib;
 
 namespace Mortfors_buss.UserControls
 {
@@ -14,43 +15,28 @@ namespace Mortfors_buss.UserControls
         {
             if (string.IsNullOrEmpty(txtEmail.Text) || string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtAddress.Text))
             {
-                ShowErrorBox("Fyll i e-post, namn och adress");
+                ErrorMessage.Show("Fyll i e-post, namn och adress");
                 return;
             }
-            
-            if (MainForm.DataSource.RegisterCustomer(txtEmail.Text, txtName.Text, txtAddress.Text, txtPhone.Text))
+
+            try
             {
-                ChangeUserControl(typeof(MainMenu));
+                if (MainForm.DataSource.RegisterCustomer(txtEmail.Text, txtName.Text, txtAddress.Text, txtPhone.Text))
+                {
+                    BtnBack_Click(null, null);
+                    return;
+                }
             }
-            else
+            catch
             {
-                ShowErrorBox("Ogiltig värde");
             }
+
+            ErrorMessage.Show("Ogiltig värde");
         }
 
         private void BtnBack_Click(object sender, EventArgs e)
         {
-            ChangeUserControl(typeof(MainMenu));
-        }
-
-        private void ChangeUserControl(Type type)
-        {
-            Visible = false;
-            MainForm.UserControls[type].Visible = true;
-        }
-        
-        private void ShowErrorBox(string text)
-        {
-            string caption = string.Empty;
-            MessageBox.Show(text, caption, MessageBoxButtons.OK);
-        }
-        
-        private void ClearData()
-        {
-            txtAddress.Clear();
-            txtEmail.Clear();
-            txtName.Clear();
-            txtPhone.Clear();
+            ControlUtil.ChangeControl(this, typeof(MainMenu));
         }
     }
 }
