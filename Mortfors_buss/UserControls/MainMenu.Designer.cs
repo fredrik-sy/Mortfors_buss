@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnCustomerRegistration = new System.Windows.Forms.Button();
+            this.btnRegisterCustomer = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSearchBookTravel = new System.Windows.Forms.Button();
             this.btnSearchCustomer = new System.Windows.Forms.Button();
@@ -36,15 +36,15 @@
             this.btnCancelTravel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // btnCustomerRegistration
+            // btnRegisterCustomer
             // 
-            this.btnCustomerRegistration.Location = new System.Drawing.Point(100, 100);
-            this.btnCustomerRegistration.Name = "btnCustomerRegistration";
-            this.btnCustomerRegistration.Size = new System.Drawing.Size(140, 40);
-            this.btnCustomerRegistration.TabIndex = 0;
-            this.btnCustomerRegistration.Text = "Registrera kund";
-            this.btnCustomerRegistration.UseVisualStyleBackColor = true;
-            this.btnCustomerRegistration.Click += new System.EventHandler(this.BtnCustomerRegistration_Click);
+            this.btnRegisterCustomer.Location = new System.Drawing.Point(100, 100);
+            this.btnRegisterCustomer.Name = "btnRegisterCustomer";
+            this.btnRegisterCustomer.Size = new System.Drawing.Size(140, 40);
+            this.btnRegisterCustomer.TabIndex = 0;
+            this.btnRegisterCustomer.Text = "Registrera kund";
+            this.btnRegisterCustomer.UseVisualStyleBackColor = true;
+            this.btnRegisterCustomer.Click += new System.EventHandler(this.BtnRegisterCustomer_Click);
             // 
             // label1
             // 
@@ -64,7 +64,7 @@
             this.btnSearchBookTravel.TabIndex = 2;
             this.btnSearchBookTravel.Text = "Sök och boka resa";
             this.btnSearchBookTravel.UseVisualStyleBackColor = true;
-            this.btnSearchBookTravel.Click += new System.EventHandler(this.BtnSearchBookTravel_Click);
+            this.btnSearchBookTravel.Click += new System.EventHandler(this.BtnSearchBookTrip_Click);
             // 
             // btnSearchCustomer
             // 
@@ -94,7 +94,7 @@
             this.btnCancelTravel.TabIndex = 5;
             this.btnCancelTravel.Text = "Ställ in resa";
             this.btnCancelTravel.UseVisualStyleBackColor = true;
-            this.btnCancelTravel.Click += new System.EventHandler(this.BtnCancelTravel_Click);
+            this.btnCancelTravel.Click += new System.EventHandler(this.BtnCancelTrip_Click);
             // 
             // MainMenu
             // 
@@ -105,7 +105,7 @@
             this.Controls.Add(this.btnSearchCustomer);
             this.Controls.Add(this.btnSearchBookTravel);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnCustomerRegistration);
+            this.Controls.Add(this.btnRegisterCustomer);
             this.Name = "MainMenu";
             this.Size = new System.Drawing.Size(500, 400);
             this.ResumeLayout(false);
@@ -115,7 +115,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnCustomerRegistration;
+        private System.Windows.Forms.Button btnRegisterCustomer;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSearchBookTravel;
         private System.Windows.Forms.Button btnSearchCustomer;

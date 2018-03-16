@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Mortfors_buss.Lib
 {
-    internal static class ControlUtil
+    internal static class ControlUtils
     {
         public static void ChangeControl(UserControl sender, Type controlType)
         {
@@ -24,6 +24,11 @@ namespace Mortfors_buss.Lib
             {
                 switch (control)
                 {
+                    case ComboBox comboBox:
+                        comboBox.DataSource = null;
+                        comboBox.Items.Clear();
+                        comboBox.ResetText();
+                        break;
                     case TextBox textBox:
                         textBox.Clear();
                         break;

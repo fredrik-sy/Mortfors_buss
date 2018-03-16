@@ -136,7 +136,7 @@ namespace Mortfors_buss.UserControls
                     r.Field<string>("arrivalstop") == ((KeyValuePair<string, string>)cmbTo.SelectedItem).Key)
                 .ToDictionary(
                     r => r,
-                    r => Enum.GetName(typeof(DayOfVecka), r.Field<int>("dayofweek")) + " " +
+                    r => Enum.GetName(typeof(DayOfWeek2), r.Field<int>("dayofweek")) + " " +
                          r.Field<TimeSpan>("departuretime").ToString(@"hh\:mm") + " - " +
                          r.Field<TimeSpan>("arrivaltime").ToString(@"hh\:mm"));
 

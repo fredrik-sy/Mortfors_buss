@@ -60,8 +60,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Lib\ControlUtil.cs" />
-    <Compile Include="Lib\DayOfVecka.cs" />
+    <Compile Include="Lib\ControlUtils.cs" />
+    <Compile Include="Lib\DayOfWeek2.cs" />
     <Compile Include="Lib\ErrorMessage.cs" />
     <Compile Include="Lib\Statement.cs" />
     <Compile Include="UserControls\CancelTrip.cs">
@@ -70,17 +70,17 @@
     <Compile Include="UserControls\CancelTrip.Designer.cs">
       <DependentUpon>CancelTrip.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SearchBookTravel.cs">
+    <Compile Include="UserControls\SearchBookTrip.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\SearchBookTravel.Designer.cs">
-      <DependentUpon>SearchBookTravel.cs</DependentUpon>
+    <Compile Include="UserControls\SearchBookTrip.Designer.cs">
+      <DependentUpon>SearchBookTrip.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CustomerRegistration.cs">
+    <Compile Include="UserControls\RegisterCustomer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\CustomerRegistration.Designer.cs">
-      <DependentUpon>CustomerRegistration.cs</DependentUpon>
+    <Compile Include="UserControls\RegisterCustomer.Designer.cs">
+      <DependentUpon>RegisterCustomer.cs</DependentUpon>
     </Compile>
     <Compile Include="Lib\DataSource.cs" />
     <Compile Include="MainForm.cs">
@@ -113,11 +113,11 @@
     <EmbeddedResource Include="UserControls\CancelTrip.resx">
       <DependentUpon>CancelTrip.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\SearchBookTravel.resx">
-      <DependentUpon>SearchBookTravel.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\SearchBookTrip.resx">
+      <DependentUpon>SearchBookTrip.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\CustomerRegistration.resx">
-      <DependentUpon>CustomerRegistration.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\RegisterCustomer.resx">
+      <DependentUpon>RegisterCustomer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

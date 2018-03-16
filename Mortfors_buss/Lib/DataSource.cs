@@ -117,7 +117,7 @@ namespace Mortfors_buss.Lib
             return true;
         }
 
-        public DataSet RetrieveBusTrip(int year, int week)
+        public DataSet RetrieveTrip(int year, int week)
         {
             using (PreparedStatement preparedStatement = new PreparedStatement(connection))
             {
@@ -142,7 +142,7 @@ namespace Mortfors_buss.Lib
             }
         }
 
-        public DataSet RetrieveBookingSchedule(int year, int week)
+        public DataSet RetrieveBooking(int year, int week)
         {
             using (PreparedStatement preparedStatement = new PreparedStatement(connection))
             {

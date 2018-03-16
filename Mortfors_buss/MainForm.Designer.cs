@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.mainMenu = new Mortfors_buss.UserControls.MainMenu();
-            this.customerRegistration = new Mortfors_buss.UserControls.CustomerRegistration();
-            this.searchBookTravel = new Mortfors_buss.UserControls.SearchBookTravel();
+            this.customerRegistration = new Mortfors_buss.UserControls.RegisterCustomer();
+            this.searchBookTravel = new Mortfors_buss.UserControls.SearchBookTrip();
             this.searchCustomer = new Mortfors_buss.UserControls.SearchCustomer();
             this.searchBookDriver = new Mortfors_buss.UserControls.SearchBookDriver();
             this.cancelTravel = new Mortfors_buss.UserControls.CancelTrip();
@@ -103,9 +103,9 @@
 
         #endregion
 
-        private UserControls.CustomerRegistration customerRegistration;
+        private UserControls.RegisterCustomer customerRegistration;
         private UserControls.MainMenu mainMenu;
-        private UserControls.SearchBookTravel searchBookTravel;
+        private UserControls.SearchBookTrip searchBookTravel;
         private UserControls.SearchCustomer searchCustomer;
         private UserControls.SearchBookDriver searchBookDriver;
         private UserControls.CancelTrip cancelTravel;

@@ -1,6 +1,6 @@
 ﻿namespace Mortfors_buss.UserControls
 {
-    partial class CustomerRegistration
+    partial class RegisterCustomer
     {
         /// <summary> 
         /// Required designer variable.

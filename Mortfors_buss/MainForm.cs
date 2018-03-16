@@ -37,8 +37,8 @@ namespace Mortfors_buss
             UserControls = new Dictionary<Type, UserControl>
             {
                 {typeof(MainMenu), mainMenu},
-                {typeof(CustomerRegistration), customerRegistration},
-                {typeof(SearchBookTravel), searchBookTravel},
+                {typeof(RegisterCustomer), customerRegistration},
+                {typeof(SearchBookTrip), searchBookTravel},
                 {typeof(SearchCustomer), searchCustomer},
                 {typeof(SearchBookDriver), searchBookDriver},
                 {typeof(CancelTrip), cancelTravel }

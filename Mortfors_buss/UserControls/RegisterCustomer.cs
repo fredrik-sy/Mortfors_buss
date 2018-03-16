@@ -4,9 +4,9 @@ using Mortfors_buss.Lib;
 
 namespace Mortfors_buss.UserControls
 {
-    public partial class CustomerRegistration : UserControl
+    public partial class RegisterCustomer : UserControl
     {
-        public CustomerRegistration()
+        public RegisterCustomer()
         {
             InitializeComponent();
         }
@@ -36,7 +36,7 @@ namespace Mortfors_buss.UserControls
 
         private void BtnBack_Click(object sender, EventArgs e)
         {
-            ControlUtil.ChangeControl(this, typeof(MainMenu));
+            ControlUtils.ChangeControl(this, typeof(MainMenu));
         }
     }
 }

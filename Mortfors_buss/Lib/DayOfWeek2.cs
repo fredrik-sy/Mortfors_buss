@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mortfors_buss.Lib
 {
-    internal enum DayOfVecka
+    internal enum DayOfWeek2
     {
         Måndag = 1,
         Tisdag = 2,

@@ -26,7 +26,7 @@ namespace Mortfors_buss.UserControls
         private void BtnBack_Click(object sender, EventArgs e)
         {
             btnCancelTrip.Enabled = false;
-            ControlUtil.ChangeControl(this, typeof(MainMenu));
+            ControlUtils.ChangeControl(this, typeof(MainMenu));
         }
 
         private void BtnCancelTrip_Click(object sender, EventArgs e)

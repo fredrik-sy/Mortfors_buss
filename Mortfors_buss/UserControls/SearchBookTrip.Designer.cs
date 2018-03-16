@@ -1,6 +1,6 @@
 ﻿namespace Mortfors_buss.UserControls
 {
-    partial class SearchBookTravel
+    partial class SearchBookTrip
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtWeekNumber = new System.Windows.Forms.TextBox();
+            this.txtWeek = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cmbFrom = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -48,6 +48,8 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.cmbCustomer = new System.Windows.Forms.ComboBox();
+            this.txtYear = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -63,18 +65,18 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(25, 90);
+            this.label2.Location = new System.Drawing.Point(110, 90);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(75, 13);
+            this.label2.Size = new System.Drawing.Size(38, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Veckonummer";
+            this.label2.Text = "Vecka";
             // 
-            // txtWeekNumber
+            // txtWeek
             // 
-            this.txtWeekNumber.Location = new System.Drawing.Point(110, 87);
-            this.txtWeekNumber.Name = "txtWeekNumber";
-            this.txtWeekNumber.Size = new System.Drawing.Size(30, 20);
-            this.txtWeekNumber.TabIndex = 3;
+            this.txtWeek.Location = new System.Drawing.Point(155, 87);
+            this.txtWeek.Name = "txtWeek";
+            this.txtWeek.Size = new System.Drawing.Size(30, 20);
+            this.txtWeek.TabIndex = 3;
             // 
             // label3
             // 
@@ -238,10 +240,28 @@
             this.cmbCustomer.Size = new System.Drawing.Size(240, 21);
             this.cmbCustomer.TabIndex = 20;
             // 
-            // SearchBookTravel
+            // txtYear
+            // 
+            this.txtYear.Location = new System.Drawing.Point(50, 87);
+            this.txtYear.Name = "txtYear";
+            this.txtYear.Size = new System.Drawing.Size(40, 20);
+            this.txtYear.TabIndex = 55;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(25, 90);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(17, 13);
+            this.label10.TabIndex = 54;
+            this.label10.Text = "År";
+            // 
+            // SearchBookTrip
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.txtYear);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.cmbCustomer);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.btnSearch);
@@ -259,10 +279,10 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cmbFrom);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtWeekNumber);
+            this.Controls.Add(this.txtWeek);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "SearchBookTravel";
+            this.Name = "SearchBookTrip";
             this.Size = new System.Drawing.Size(500, 400);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -273,7 +293,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtWeekNumber;
+        private System.Windows.Forms.TextBox txtWeek;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbFrom;
         private System.Windows.Forms.Label label4;
@@ -291,5 +311,7 @@
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cmbCustomer;
+        private System.Windows.Forms.TextBox txtYear;
+        private System.Windows.Forms.Label label10;
     }
 }

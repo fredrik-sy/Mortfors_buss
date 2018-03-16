@@ -11,29 +11,29 @@ namespace Mortfors_buss.UserControls
             InitializeComponent();
         }
 
-        private void BtnCustomerRegistration_Click(object sender, EventArgs e)
+        private void BtnRegisterCustomer_Click(object sender, EventArgs e)
         {
-            ControlUtil.ChangeControl(this, typeof(CustomerRegistration));
+            ControlUtils.ChangeControl(this, typeof(RegisterCustomer));
         }
 
-        private void BtnSearchBookTravel_Click(object sender, EventArgs e)
+        private void BtnSearchBookTrip_Click(object sender, EventArgs e)
         {
-            ControlUtil.ChangeControl(this, typeof(SearchBookTravel));
+            ControlUtils.ChangeControl(this, typeof(SearchBookTrip));
         }
 
         private void BtnSearchCustomer_Click(object sender, EventArgs e)
         {
-            ControlUtil.ChangeControl(this, typeof(SearchCustomer));
+            ControlUtils.ChangeControl(this, typeof(SearchCustomer));
         }
 
         private void BtnSearchBookDriver_Click(object sender, EventArgs e)
         {
-            ControlUtil.ChangeControl(this, typeof(SearchBookDriver));
+            ControlUtils.ChangeControl(this, typeof(SearchBookDriver));
         }
 
-        private void BtnCancelTravel_Click(object sender, EventArgs e)
+        private void BtnCancelTrip_Click(object sender, EventArgs e)
         {
-            ControlUtil.ChangeControl(this, typeof(CancelTrip));
+            ControlUtils.ChangeControl(this, typeof(CancelTrip));
         }
     }
 }
