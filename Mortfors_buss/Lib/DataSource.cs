@@ -250,7 +250,7 @@ namespace Mortfors_buss.Lib
                     "from trip " +
                     "join busstop as departure on departurestop=departure.city " +
                     "join busstop as arrival on arrivalstop=arrival.city " +
-                    "left join drive on id=trip_id and week=@week and year=@year " +
+                    "left join driving on id=trip_id and week=@week and year=@year " +
                     "where id not in (" +
                         "select id " +
                         "from trip " +
@@ -265,14 +265,14 @@ namespace Mortfors_buss.Lib
             }
         }
 
-        public DataSet RetrieveDriversDrive(int year, int week)
+        public DataSet RetrieveDriversDriving(int year, int week)
         {
             using (PreparedStatement preparedStatement = new PreparedStatement(connection))
             {
                 preparedStatement.CommandText =
                     "select driver_id, dayofweek, departuretime, arrivaltime " +
-                    "from drive " +
-                    "join trip on drive.trip_id=trip.id " +
+                    "from driving " +
+                    "join trip on driving.trip_id=trip.id " +
                     "where year=@year and week=@week";
 
                 preparedStatement.AddParameter("year", year, NpgsqlDbType.Integer);
@@ -292,7 +292,7 @@ namespace Mortfors_buss.Lib
             }
         }
 
-        public bool RegisterDrive(int year, int week, string driverId, int tripId)
+        public bool RegisterDriving(int year, int week, string driverId, int tripId)
         {
             NpgsqlTransaction transaction = connection.BeginTransaction(IsolationLevel.Serializable);
 
@@ -302,7 +302,7 @@ namespace Mortfors_buss.Lib
                 {
                     preparedStatement.Transaction = transaction;
                     preparedStatement.CommandText =
-                        "insert into drive (year, week, driver_id, trip_id) " +
+                        "insert into driving (year, week, driver_id, trip_id) " +
                         "values (@year, @week, @driver_id, @trip_id)";
 
                     preparedStatement.AddParameter("year", year, NpgsqlDbType.Integer);
@@ -328,6 +328,7 @@ namespace Mortfors_buss.Lib
             {
                 preparedStatement.CommandText =
                     "select id, " +
+                    "to_char((date_trunc('week', current_date)::date) + (dayofweek - 1), 'Day') as vecka, " +
                     "departurestop as avgång, to_char(departuretime, 'HH:MI') as avgångstid, " +
                     "arrivalstop as ankomst, to_char(arrivaltime, 'HH:MI') as ankomsttid " +
                     "from trip " +

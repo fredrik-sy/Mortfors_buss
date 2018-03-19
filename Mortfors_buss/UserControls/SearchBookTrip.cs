@@ -166,8 +166,13 @@ namespace Mortfors_buss.UserControls
                     if (MainForm.DataSource.RegisterBooking(year, week, customerId, tripId, numberOfSeats))
                     {
                         BtnBack_Click(null, null);
-                        return;
                     }
+                    else
+                    {
+                        ErrorMessage.Show("Kunden är redan registrerad på resan");
+                    }
+
+                    return;
                 }
 
                 ErrorMessage.Show("Ogiltig antal");

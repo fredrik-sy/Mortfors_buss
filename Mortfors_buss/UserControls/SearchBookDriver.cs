@@ -15,7 +15,7 @@ namespace Mortfors_buss.UserControls
     public partial class SearchBookDriver : UserControl
     {
         private EnumerableRowCollection<DataRow> tripCollection;
-        private EnumerableRowCollection<DataRow> driveCollection;
+        private EnumerableRowCollection<DataRow> drivingCollection;
         private EnumerableRowCollection<DataRow> driverCollection;
         private int year;
         private int week;
@@ -39,7 +39,7 @@ namespace Mortfors_buss.UserControls
                                 .Tables[0]
                                 .AsEnumerable();
 
-                            driveCollection = MainForm.DataSource.RetrieveDriversDrive(year, week)
+                            drivingCollection = MainForm.DataSource.RetrieveDriversDriving(year, week)
                                 .Tables[0]
                                 .AsEnumerable();
 
@@ -92,7 +92,7 @@ namespace Mortfors_buss.UserControls
             KeyValuePair<DataRow, string> selectedTime = (KeyValuePair<DataRow, string>)cmbTime.SelectedItem;
             KeyValuePair<string, string> selectedDriver = (KeyValuePair<string, string>)cmbDriver.SelectedItem;
 
-            if (MainForm.DataSource.RegisterDrive(year, week, selectedDriver.Key,
+            if (MainForm.DataSource.RegisterDriving(year, week, selectedDriver.Key,
                 selectedTime.Key.Field<int>("id")))
             {
                 BtnBack_Click(null, null);
@@ -154,7 +154,7 @@ namespace Mortfors_buss.UserControls
                     // that has conflict with the drivers drive time.
                     Dictionary<string, string> driverDictionary = driverCollection.Where(r =>
                     {
-                        return !driveCollection.Any(n =>
+                        return !drivingCollection.Any(n =>
                         {
                             if (r.Field<string>("personalnumber") == n.Field<string>("driver_id"))
                             {
