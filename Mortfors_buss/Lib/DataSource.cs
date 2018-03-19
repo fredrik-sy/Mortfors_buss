@@ -171,7 +171,7 @@ namespace Mortfors_buss.Lib
             using (PreparedStatement preparedStatement = new PreparedStatement(connection))
             {
                 string commandText =
-                    "select distinct customer.email as epost, name as namn, address as adress, number as telefonnummer, count(customer_id) as antalturer " +
+                    "select distinct customer.email as \"E-post\", name as \"Namn\", address as \"Adress\", number as \"Telefon\", count(customer_id) as \"Antal Turer\" " +
                     "from customer " +
                     "left join phone on customer.email=phone.email " +
                     "left join (" +
@@ -220,7 +220,7 @@ namespace Mortfors_buss.Lib
             using (PreparedStatement preparedStatement = new PreparedStatement(connection))
             {
                 preparedStatement.CommandText =
-                    "select distinct departurestop as avgång, arrivalstop as ankomst, count(*) as antalturer " +
+                    "select distinct departurestop as \"Avgång\", arrivalstop as \"Ankomst\", count(*) as \"Antal Turer\" " +
                     "from (" +
                         "select distinct on (booking.week, customer_id, booking.trip_id) trip.departurestop, trip.arrivalstop " +
                         "from booking " +
@@ -327,10 +327,10 @@ namespace Mortfors_buss.Lib
             using (PreparedStatement preparedStatement = new PreparedStatement(connection))
             {
                 preparedStatement.CommandText =
-                    "select id, " +
-                    "to_char((date_trunc('week', current_date)::date) + (dayofweek - 1), 'Day') as vecka, " +
-                    "departurestop as avgång, to_char(departuretime, 'HH:MI') as avgångstid, " +
-                    "arrivalstop as ankomst, to_char(arrivaltime, 'HH:MI') as ankomsttid " +
+                    "select id as \"ID\", " +
+                    "to_char((date_trunc('week', current_date)::date) + (dayofweek - 1), 'Day') as \"Veckodag\", " +
+                    "departurestop as \"Avgång\", to_char(departuretime, 'HH:MI') as \"Avgångstid\", " +
+                    "arrivalstop as \"Ankomst\", to_char(arrivaltime, 'HH:MI') as \"Ankomsttid\" " +
                     "from trip " +
                     "left join cancelled on trip.id=cancelled.trip_id and year=@year and week=@week " +
                     "where cancelled.trip_id is null";
