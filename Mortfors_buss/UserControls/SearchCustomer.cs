@@ -45,8 +45,8 @@ namespace Mortfors_buss.UserControls
                 }
                 else
                 {
-                    chkLessThan.Checked = false;
-                    txtLessThan.Text = string.Empty;
+                    chkEqual.Checked = false;
+                    txtEqual.Text = string.Empty;
                 }
             }
 
@@ -59,8 +59,8 @@ namespace Mortfors_buss.UserControls
                 }
                 else
                 {
-                    chkLessThan.Checked = false;
-                    txtLessThan.Text = string.Empty;
+                    chkGreaterThan.Checked = false;
+                    txtGreaterThan.Text = string.Empty;
                 }
             }
 
